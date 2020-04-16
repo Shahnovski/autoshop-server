@@ -1,4 +1,4 @@
-package com.example.autoshopserver.Car;
+package com.example.autoshopserver.car;
 
 public enum TypeEngine {
     GASOLINE,

@@ -1,17 +1,19 @@
-package com.example.autoshopserver.Car;
+package com.example.autoshopserver.car;
 
+import com.example.autoshopserver.car.brand.Brand;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
-import org.springframework.data.annotation.Id;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-//@Entity
+@Entity
 @Table(name = "car")
 public class Car implements Serializable {
 
@@ -20,8 +22,10 @@ public class Car implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "brandId")
-    private Long brandId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "brand_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Brand brand;
 
     @Column(name = "carModel")
     private String carModel;
@@ -41,10 +45,10 @@ public class Car implements Serializable {
     @Column(name = "carCost")
     private Float carCost;
 
-    @Column(name = "ownerCountry")
-    private String ownerCountry;
+    @Column(name = "countryLocation")
+    private String countryLocation;
 
-    @Column(name = "ownerCity")
-    private String ownerCity;
+    @Column(name = "cityLocation")
+    private String cityLocation;
 
 }
