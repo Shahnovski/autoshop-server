@@ -1,6 +1,7 @@
 package com.example.autoshopserver.car;
 
 import com.example.autoshopserver.car.brand.Brand;
+import com.example.autoshopserver.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,11 @@ public class Car implements Serializable {
     @JoinColumn(name = "brand_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Brand brand;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User owner;
 
     @Column(name = "carModel")
     private String carModel;

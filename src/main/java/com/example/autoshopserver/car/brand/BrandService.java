@@ -1,12 +1,10 @@
 package com.example.autoshopserver.car.brand;
 
-import com.example.autoshopserver.car.Car;
-import com.example.autoshopserver.car.CarRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 
 @Service

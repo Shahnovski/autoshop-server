@@ -1,8 +1,10 @@
 package com.example.autoshopserver.user;
 
+import com.example.autoshopserver.car.Car;
 import lombok.*;
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -28,5 +30,8 @@ public class User {
 
     @Column(name = "password")
     String password;
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Car> cars;
 
 }
