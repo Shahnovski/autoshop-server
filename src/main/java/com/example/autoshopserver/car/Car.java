@@ -31,9 +31,11 @@ public class Car implements Serializable {
     private String carModel;
 
     @Column(name = "typeTransmission")
+    @Enumerated(EnumType.STRING)
     private TypeTransmission typeTransmission;
 
     @Column(name = "typeEngine")
+    @Enumerated(EnumType.STRING)
     private TypeEngine typeEngine;
 
     @Column(name = "carMileage")

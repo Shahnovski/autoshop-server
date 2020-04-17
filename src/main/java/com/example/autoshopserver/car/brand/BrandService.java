@@ -19,16 +19,16 @@ public class BrandService {
         return brandRepository.findAll();
     }
 
-    public Optional<Brand> getBrandById(Long id) {
-        Optional<Brand> brand = brandRepository.findById(id);
-        return brand;
+    public Brand getBrandById(Long id) {
+        return brandRepository.findById(id).orElseThrow(RuntimeException::new);
     }
 
     public Brand createBrand(Brand brand) {
         return brandRepository.save(brand);
     }
 
-    public Brand updateBrand(Brand brand) {
+    public Brand updateBrand(Long id, Brand brand) {
+        brand.setId(id);
         return brandRepository.save(brand);
     }
 

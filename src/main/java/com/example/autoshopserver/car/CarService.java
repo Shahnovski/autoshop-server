@@ -13,21 +13,22 @@ import java.util.Optional;
 public class CarService {
 
     private final CarRepository carRepository;
+    private final BrandService brandService;
 
     public List<Car> getCarList() {
         return carRepository.findAll();
     }
 
-    public Optional<Car> getCarById(Long id) {
-        Optional<Car> car = carRepository.findById(id);
-        return car;
+    public Car getCarById(Long id) {
+        return carRepository.findById(id).orElseThrow(RuntimeException::new);
     }
 
     public Car createCar(Car car) {
         return carRepository.save(car);
     }
 
-    public Car updateCar(Car car) {
+    public Car updateCar(Long id, Car car) {
+        car.setId(id);
         return carRepository.save(car);
     }
 
