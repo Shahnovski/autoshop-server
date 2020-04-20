@@ -12,7 +12,7 @@ public class CarDTO {
 
     private Long id;
     private Long brandId;
-    private Long userId;
+    private Long ownerId;
     private String carModel;
     private TypeTransmission typeTransmission;
     private TypeEngine typeEngine;

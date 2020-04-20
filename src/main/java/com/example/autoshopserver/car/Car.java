@@ -16,7 +16,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "car")
-public class Car implements Serializable {
+public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

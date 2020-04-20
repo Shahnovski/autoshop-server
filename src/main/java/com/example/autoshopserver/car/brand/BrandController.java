@@ -15,27 +15,27 @@ public class BrandController {
     private final BrandService brandService;
 
     @GetMapping(value = "", produces = "application/json; charset=UTF-8")
-    List<Brand> getBrandList() {
+    List<BrandDTO> getBrandList() {
         return brandService.getBrandList();
     }
 
     @GetMapping("/{id}")
-    Brand getBrandById(@PathVariable(value = "id") Long brandId) {
+    BrandDTO getBrandById(@PathVariable(value = "id") Long brandId) {
         return brandService.getBrandById(brandId);
     }
 
     @PostMapping("")
-    Brand createBrand(@Valid @RequestBody Brand brand) {
-        return brandService.createBrand(brand);
+    BrandDTO createBrand(@Valid @RequestBody BrandDTO brandDTO) {
+        return brandService.createBrand(brandDTO);
     }
 
     @PutMapping("/{id}")
-    public Brand updateBrand(@PathVariable(value = "id") Long brandId, @Valid @RequestBody Brand brand) {
-        return brandService.updateBrand(brandId, brand);
+    public BrandDTO updateBrand(@PathVariable(value = "id") Long brandId, @Valid @RequestBody BrandDTO brandDTO) {
+        return brandService.updateBrand(brandId, brandDTO);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteSurvey(@PathVariable(value = "id") Long brandId) {
+    public void deleteBrand(@PathVariable(value = "id") Long brandId) {
         brandService.deleteBrand(brandId);
     }
 }

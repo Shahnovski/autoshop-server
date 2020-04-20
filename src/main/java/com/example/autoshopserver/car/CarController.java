@@ -14,23 +14,23 @@ public class CarController {
     private final CarService carService;
 
     @GetMapping(value = "", produces = "application/json; charset=UTF-8")
-    List<Car> getCarList() {
+    List<CarDTO> getCarList() {
         return carService.getCarList();
     }
 
     @GetMapping("/{id}")
-    Car getCarById(@PathVariable(value = "id") Long carId) {
+    CarDTO getCarById(@PathVariable(value = "id") Long carId) {
         return carService.getCarById(carId);
     }
 
     @PostMapping("")
-    Car createCar(@Valid @RequestBody Car car) {
-        return carService.createCar(car);
+    CarDTO createCar(@Valid @RequestBody CarDTO carDTO) {
+        return carService.createCar(carDTO);
     }
 
     @PutMapping("/{id}")
-    public Car updateCar(@PathVariable(value = "id") Long carId, @Valid @RequestBody Car car) {
-        return carService.updateCar(carId, car);
+    public CarDTO updateCar(@PathVariable(value = "id") Long carId, @Valid @RequestBody CarDTO carDTO) {
+        return carService.updateCar(carId, carDTO);
     }
 
     @DeleteMapping("/{id}")
