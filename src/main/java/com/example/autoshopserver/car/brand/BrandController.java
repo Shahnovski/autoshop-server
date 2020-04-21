@@ -26,12 +26,12 @@ public class BrandController {
 
     @PostMapping("")
     BrandDTO createBrand(@Valid @RequestBody BrandDTO brandDTO) {
-        return brandService.createBrand(brandDTO);
+        return brandService.saveBrand(null, brandDTO);
     }
 
     @PutMapping("/{id}")
     public BrandDTO updateBrand(@PathVariable(value = "id") Long brandId, @Valid @RequestBody BrandDTO brandDTO) {
-        return brandService.updateBrand(brandId, brandDTO);
+        return brandService.saveBrand(brandId, brandDTO);
     }
 
     @DeleteMapping("/{id}")

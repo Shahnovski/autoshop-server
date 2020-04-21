@@ -15,7 +15,7 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    //implementation 'org.flywaydb:flyway-core'
+    implementation 'org.flywaydb:flyway-core'
     compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.2.6.RELEASE'
     annotationProcessor 'org.projectlombok:lombok'
     compileOnly 'org.projectlombok:lombok'

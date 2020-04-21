@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
+import java.sql.Blob;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -58,5 +60,10 @@ public class Car {
 
     @Column(name = "cityLocation")
     private String cityLocation;
+
+    @Lob
+    @Column(name="image")
+    private Blob image;
+
 
 }

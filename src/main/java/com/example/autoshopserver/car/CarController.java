@@ -25,12 +25,12 @@ public class CarController {
 
     @PostMapping("")
     CarDTO createCar(@Valid @RequestBody CarDTO carDTO) {
-        return carService.createCar(carDTO);
+        return carService.saveCar(null, carDTO);
     }
 
     @PutMapping("/{id}")
     public CarDTO updateCar(@PathVariable(value = "id") Long carId, @Valid @RequestBody CarDTO carDTO) {
-        return carService.updateCar(carId, carDTO);
+        return carService.saveCar(carId, carDTO);
     }
 
     @DeleteMapping("/{id}")

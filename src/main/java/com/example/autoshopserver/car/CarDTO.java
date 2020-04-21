@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Blob;
+
 
 @Data
 @NoArgsConstructor
@@ -21,5 +23,5 @@ public class CarDTO {
     private Float carCost;
     private String countryLocation;
     private String cityLocation;
-
+    private Blob imageURL;
 }
