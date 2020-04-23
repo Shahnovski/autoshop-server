@@ -13,7 +13,7 @@ create table car (
     car_status varchar(255),
     city_location varchar(255),
     country_location varchar(255),
-    image oid,
+    car_image oid,
     car_mileage float8,
     type_engine varchar(255),
     type_transmission varchar(255),

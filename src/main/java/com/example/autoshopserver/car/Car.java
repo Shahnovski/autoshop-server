@@ -62,8 +62,8 @@ public class Car {
     private String cityLocation;
 
     @Lob
-    @Column(name="image")
-    private Blob image;
+    @Column(name="carImage")
+    private Blob carImage;
 
 
 }

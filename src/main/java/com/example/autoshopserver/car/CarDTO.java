@@ -23,5 +23,5 @@ public class CarDTO {
     private Float carCost;
     private String countryLocation;
     private String cityLocation;
-    private Blob imageURL;
+    private Blob carImage;
 }
