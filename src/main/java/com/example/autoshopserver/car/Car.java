@@ -47,7 +47,7 @@ public class Car {
     private TypeEngine typeEngine;
 
     @Column(name = "carMileage")
-    private Double mileageCar;
+    private Double carMileage;
 
     @Column(name = "carStatus")
     private String carStatus;
@@ -63,7 +63,7 @@ public class Car {
 
     @Lob
     @Column(name="carImage")
-    private Blob carImage;
+    private byte[] carImage;
 
 
 }
