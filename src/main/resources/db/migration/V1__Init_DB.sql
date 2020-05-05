@@ -1,4 +1,4 @@
-create sequence hibernate_sequence start 1 increment 1;
+create sequence hibernate_sequence start 80 increment 1;
 
 create table brand (
     id int8 not null,

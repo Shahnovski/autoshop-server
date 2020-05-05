@@ -35,7 +35,8 @@ public class CarService {
         if (id != null) car.setId(id);
         BrandDTO brandDTO = brandService.getBrandById(carDTO.getBrandId());
         car.setBrand(brandMapper.toBrand(brandDTO));
-        User owner = userRepository.findById(carDTO.getOwnerId()).orElseThrow(UserNotFoundException::new);
+        //User owner = userRepository.findById(carDTO.getOwnerId()).orElseThrow(UserNotFoundException::new);
+        User owner = userRepository.findById(2L).orElseThrow(UserNotFoundException::new);
         car.setOwner(owner);
         return carMapper.toCarDTO(carRepository.save(car));
     }
