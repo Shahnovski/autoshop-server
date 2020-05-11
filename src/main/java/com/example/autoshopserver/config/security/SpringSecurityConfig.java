@@ -1,5 +1,6 @@
 package com.example.autoshopserver.config.security;
 
+import com.example.autoshopserver.user.Role;
 import lombok.AllArgsConstructor;
 import com.example.autoshopserver.auth.info.AuthInfo;
 import com.example.autoshopserver.auth.info.AuthInfoDTO;
@@ -62,8 +63,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .httpBasic()
                 .and()
                     .authorizeRequests()
-                    .antMatchers("/**")
-                    .permitAll()
+                    .antMatchers(ApplicationProperties.API_URL + "/cars/**").hasRole(Role.USER.toString())
+                    //.antMatchers(ApplicationProperties.API_URL + "/actuator/**").hasRole(Role.ADMIN.toString())
+                    //.antMatchers(ApplicationProperties.API_URL + "/test/**").permitAll()
+                    .antMatchers(ApplicationProperties.API_URL + "/auth*").permitAll()
+                    .antMatchers(ApplicationProperties.API_URL + "/auth-info").permitAll()
+                    .antMatchers(ApplicationProperties.API_URL + "/registration").permitAll()
+                    .antMatchers(ApplicationProperties.API_URL + "/login").permitAll()
                 .and()
                     .csrf().disable()
                     .formLogin()

@@ -37,16 +37,16 @@ public class CarService {
     public CarDTO saveCar(Long id, CarDTO carDTO, Authentication authentication) {
         Car car = carMapper.toCar(carDTO);
         if (id != null) {
+            car.setId(id);
             User currentUser = authInfoService.getUserByAuthentication(authentication);
+            User owner = userRepository.findById(carDTO.getOwnerId()).orElseThrow(UserNotFoundException::new);
+            car.setOwner(owner);
             if (!car.getOwner().getId().equals(currentUser.getId()) && !currentUser.getRoles().contains(Role.ADMIN)) {
                 throw new AccessDeniedException("The advertisement does not belong to the user");
             }
-            car.setId(id);
-            car.setOwner(authInfoService.getUserByAuthentication(authentication));
         }
         else {
-            User owner = userRepository.findById(carDTO.getOwnerId()).orElseThrow(UserNotFoundException::new);
-            car.setOwner(owner);
+            car.setOwner(authInfoService.getUserByAuthentication(authentication));
         }
         BrandDTO brandDTO = brandService.getBrandById(carDTO.getBrandId(), authentication);
         car.setBrand(brandMapper.toBrand(brandDTO));
