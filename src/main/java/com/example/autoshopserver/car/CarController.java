@@ -2,8 +2,10 @@ package com.example.autoshopserver.car;
 
 import com.example.autoshopserver.common.ApplicationProperties;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -13,29 +15,34 @@ import java.util.List;
 public class CarController {
     private final CarService carService;
 
+    @RolesAllowed({"ADMIN", "USER"})
     @GetMapping(value = "", produces = "application/json; charset=UTF-8")
-    List<CarDTO> getCarList() {
-        return carService.getCarList();
+    List<CarDTO> getCarList(Authentication authentication) {
+        return carService.getCarList(authentication);
     }
 
+    @RolesAllowed({"ADMIN", "USER"})
     @GetMapping("/{id}")
-    CarDTO getCarById(@PathVariable(value = "id") Long carId) {
-        return carService.getCarById(carId);
+    CarDTO getCarById(@PathVariable(value = "id") Long carId, Authentication authentication) {
+        return carService.getCarById(carId, authentication);
     }
 
+    @RolesAllowed({"ADMIN", "USER"})
     @PostMapping("")
-    CarDTO createCar(@Valid @RequestBody CarDTO carDTO) {
-        return carService.saveCar(null, carDTO);
+    CarDTO createCar(@Valid @RequestBody CarDTO carDTO, Authentication authentication) {
+        return carService.saveCar(null, carDTO, authentication);
     }
 
+    @RolesAllowed({"ADMIN", "USER"})
     @PutMapping("/{id}")
-    public CarDTO updateCar(@PathVariable(value = "id") Long carId, @Valid @RequestBody CarDTO carDTO) {
-        return carService.saveCar(carId, carDTO);
+    public CarDTO updateCar(@PathVariable(value = "id") Long carId, @Valid @RequestBody CarDTO carDTO, Authentication authentication) {
+        return carService.saveCar(carId, carDTO, authentication);
     }
 
+    @RolesAllowed({"ADMIN", "USER"})
     @DeleteMapping("/{id}")
-    public void deleteSurvey(@PathVariable(value = "id") Long carId) {
-        carService.deleteCar(carId);
+    public void deleteCar(@PathVariable(value = "id") Long carId, Authentication authentication) {
+        carService.deleteCar(carId, authentication);
     }
 
 }

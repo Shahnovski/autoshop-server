@@ -31,6 +31,9 @@ public class User {
     @Column(name = "password")
     String password;
 
+    @Column(name = "active")
+    Boolean active;
+
     @OneToMany(mappedBy = "owner", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Car> cars;
 

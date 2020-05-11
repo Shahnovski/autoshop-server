@@ -1,0 +1,23 @@
+package com.example.autoshopserver.auth.info;
+
+import com.google.gson.Gson;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class AuthInfoDTO {
+    private String status;
+    private Integer code;
+    private String details;
+    private String username;
+    private String roles;
+
+    public String getJson() {
+        return new Gson().toJson(this);
+    }
+}
