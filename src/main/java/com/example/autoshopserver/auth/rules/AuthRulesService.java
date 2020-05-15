@@ -6,19 +6,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthRulesService {
 
-    @Value("${auth.AuthRules.minPasswordLength:5}")
+    @Value("${auth.AuthRules.minPasswordLength}")
     private Integer minPasswordLength;
 
-    @Value("${auth.AuthRules.maxPasswordLength:256}")
+    @Value("${auth.AuthRules.maxPasswordLength}")
     private Integer maxPasswordLength;
 
-
-    @Value("${auth.AuthRules.minLoginLength:5}")
+    @Value("${auth.AuthRules.minLoginLength}")
     private Integer minLoginLength;
 
-    @Value("${auth.AuthRules.maxLoginLength:256}")
+    @Value("${auth.AuthRules.maxLoginLength}")
     private Integer maxLoginLength;
-
 
     public boolean checkPassword(String password) {
         if (password.length() < minPasswordLength) return false;

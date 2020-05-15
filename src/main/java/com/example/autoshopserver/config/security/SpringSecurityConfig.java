@@ -70,6 +70,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers(ApplicationProperties.API_URL + "/auth-info").permitAll()
                     .antMatchers(ApplicationProperties.API_URL + "/registration").permitAll()
                     .antMatchers(ApplicationProperties.API_URL + "/login").permitAll()
+                    .anyRequest().authenticated()
                 .and()
                     .csrf().disable()
                     .formLogin()

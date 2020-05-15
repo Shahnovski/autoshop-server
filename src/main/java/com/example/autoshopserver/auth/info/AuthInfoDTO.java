@@ -14,6 +14,7 @@ public class AuthInfoDTO {
     private String status;
     private Integer code;
     private String details;
+    private Long id;
     private String username;
     private String roles;
 

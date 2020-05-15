@@ -38,6 +38,7 @@ public class AuthInfoService {
         authInfo = AuthInfo.builder()
                 .status("ok")
                 .code(200)
+                .id(user.getId())
                 .username(user.getUsername())
                 .roles(user.getRoles().toString())
                 .details("success get auth info")

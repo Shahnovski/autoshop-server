@@ -36,7 +36,8 @@ public class BrandController {
 
     @RolesAllowed("ADMIN")
     @PutMapping("/{id}")
-    public BrandDTO updateBrand(@PathVariable(value = "id") Long brandId, @Valid @RequestBody BrandDTO brandDTO, Authentication authentication) {
+    public BrandDTO updateBrand(@PathVariable(value = "id") Long brandId, @Valid @RequestBody BrandDTO brandDTO,
+                                Authentication authentication) {
         return brandService.saveBrand(brandId, brandDTO, authentication);
     }
 
