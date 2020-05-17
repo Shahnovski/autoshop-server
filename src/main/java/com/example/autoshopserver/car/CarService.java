@@ -15,7 +15,6 @@ import com.example.autoshopserver.user.Role;
 import com.example.autoshopserver.user.User;
 import com.example.autoshopserver.user.UserRepository;
 import lombok.AllArgsConstructor;
-import org.hibernate.query.Query;
 import org.json.JSONArray;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -58,11 +57,23 @@ public class CarService {
 
         for (int i = 0; i < filterJsonArray.length(); i++) {
             String filterKey = filterJsonArray.getJSONArray(i).get(0).toString();
-            String filterValue = filterJsonArray.getJSONArray(i).get(1).toString();
+            Object filterValue = filterJsonArray.getJSONArray(i).get(1).toString();
             String operation = ":";
 
-            if (filterKey.compareTo("carCost") == 0) {
+            if (filterKey.compareTo("typeTransmission") == 0) {
+                filterValue = TypeTransmission.valueOf((String) filterValue);
+            }
+
+            else if (filterKey.compareTo("typeEngine") == 0) {
+                filterValue = TypeEngine.valueOf((String) filterValue);
+            }
+
+            else if (filterKey.compareTo("carCost") == 0) {
                 operation = ">";
+            }
+
+            else if (filterKey.compareTo("owner") == 0) {
+                filterValue = user;
             }
 
             carSpecifications[i] = new CarSpecification(new SearchCriteria(filterKey, operation, (Object) filterValue));
@@ -74,7 +85,7 @@ public class CarService {
         CarPage carPage = CarPage.builder()
                 .code(200)
                 .status("ok")
-                .cars(page.getContent())
+                .cars(carMapper.toCarDTOs(page.getContent()))
                 .totalElements(page.getTotalElements())
                 .totalPages(page.getTotalPages())
                 .build();
