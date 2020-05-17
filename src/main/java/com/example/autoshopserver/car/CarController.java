@@ -1,5 +1,8 @@
 package com.example.autoshopserver.car;
 
+import com.example.autoshopserver.car.page.CarPage;
+import com.example.autoshopserver.car.page.CarPageDTO;
+import com.example.autoshopserver.car.page.request.CarPageRequestDTO;
 import com.example.autoshopserver.common.ApplicationProperties;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -17,8 +20,8 @@ public class CarController {
 
     @RolesAllowed({"ADMIN", "USER"})
     @GetMapping(value = "", produces = "application/json; charset=UTF-8")
-    List<CarDTO> getCarList(Authentication authentication) {
-        return carService.getCarList(authentication);
+    CarPageDTO getCarList(CarPageRequestDTO carPageRequestDTO, Authentication authentication) {
+        return carService.getCarList(carPageRequestDTO, authentication);
     }
 
     @RolesAllowed({"ADMIN", "USER"})
