@@ -65,5 +65,8 @@ public class Car {
     @Column(name="carImage")
     private byte[] carImage;
 
+    @Column(name = "isDeleted")
+    private Boolean isDeleted;
+
 
 }

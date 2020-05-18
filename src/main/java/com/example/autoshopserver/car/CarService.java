@@ -24,7 +24,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 
 @Service
@@ -76,10 +75,18 @@ public class CarService {
                 filterValue = user;
             }
 
+            else if (filterKey.compareTo("brand") == 0) {
+                filterValue = brandMapper.toBrand(brandService.getBrandById(Long.parseLong((String)filterValue), authentication));
+            }
+
             carSpecifications[i] = new CarSpecification(new SearchCriteria(filterKey, operation, (Object) filterValue));
             if (specification == null) specification = Specification.where(carSpecifications[i]);
             else specification = specification.and(carSpecifications[i]);
         }
+
+        CarSpecification isDeleteSpecification = new CarSpecification(new SearchCriteria("isDeleted",":",false));
+        if (specification == null) specification = Specification.where(isDeleteSpecification);
+        else specification = specification.and(isDeleteSpecification);
 
         Page page = carRepository.findAll(specification, pageable);
         CarPage carPage = CarPage.builder()
@@ -112,6 +119,7 @@ public class CarService {
         else {
             car.setOwner(authInfoService.getUserByAuthentication(authentication));
         }
+        car.setIsDeleted(false);
         BrandDTO brandDTO = brandService.getBrandById(carDTO.getBrandId(), authentication);
         car.setBrand(brandMapper.toBrand(brandDTO));
         return carMapper.toCarDTO(carRepository.save(car));
@@ -124,7 +132,8 @@ public class CarService {
         if (!car.getOwner().getId().equals(currentUser.getId()) && !currentUser.getRoles().contains(Role.ADMIN)) {
             throw new AccessDeniedException("The advertisement does not belong to the user");
         }
-        carRepository.deleteById(carId);
+        car.setIsDeleted(true);
+        carRepository.save(car);
     }
 
 }

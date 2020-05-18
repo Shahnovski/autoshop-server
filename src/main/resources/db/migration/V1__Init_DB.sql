@@ -19,6 +19,7 @@ create table car (
     type_transmission varchar(255),
     brand_id int8 not null,
     user_id int8 not null,
+    is_deleted boolean not null,
     primary key (id)
 );
 
