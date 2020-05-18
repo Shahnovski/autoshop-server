@@ -27,6 +27,7 @@ public class CarServiceTest {
 
     private static final Car CAR = mock(Car.class);
     private static final User USER = mock(User.class);
+    private static final User OWNER = mock(User.class);
     private static final Authentication AUTHENTICATION = mock(Authentication.class);
 
     private final CarRepository carRepository = mock(CarRepository.class);
@@ -51,8 +52,14 @@ public class CarServiceTest {
 
     @Test
     public void adminShouldAlwaysEditToAnyCar() {
+        final Long USER_ID = 1L;
+        final Long CAR_OWNER_ID = 2L;
+
         when(authInfoService.getUserByAuthentication(AUTHENTICATION)).thenReturn(USER);
         when(USER.getRoles()).thenReturn(Collections.singleton(Role.ADMIN));
+        when(CAR.getOwner()).thenReturn(OWNER);
+        when(OWNER.getId()).thenReturn(CAR_OWNER_ID);
+        when(USER.getId()).thenReturn(USER_ID);
         boolean editAllowed = carService.allowEditCars(AUTHENTICATION, CAR);
         assertThat(editAllowed).isTrue();
     }
@@ -64,7 +71,8 @@ public class CarServiceTest {
 
         when(authInfoService.getUserByAuthentication(AUTHENTICATION)).thenReturn(USER);
         when(USER.getRoles()).thenReturn(Collections.singleton(Role.USER));
-        when(CAR.getOwner().getId()).thenReturn(CAR_OWNER_ID);
+        when(CAR.getOwner()).thenReturn(OWNER);
+        when(OWNER.getId()).thenReturn(CAR_OWNER_ID);
         when(USER.getId()).thenReturn(USER_ID);
         boolean accessAllowed = carService.allowEditCars(AUTHENTICATION, CAR);
         assertThat(accessAllowed).isTrue();
@@ -77,10 +85,11 @@ public class CarServiceTest {
 
         when(authInfoService.getUserByAuthentication(AUTHENTICATION)).thenReturn(USER);
         when(USER.getRoles()).thenReturn(Collections.singleton(Role.USER));
-        when(CAR.getOwner().getId()).thenReturn(CAR_OWNER_ID);
+        when(CAR.getOwner()).thenReturn(OWNER);
+        when(OWNER.getId()).thenReturn(CAR_OWNER_ID);
         when(USER.getId()).thenReturn(USER_ID);
         boolean accessAllowed = carService.allowEditCars(AUTHENTICATION, CAR);
-        assertThat(accessAllowed).isTrue();
+        assertThat(accessAllowed).isFalse();
     }
 
 }
