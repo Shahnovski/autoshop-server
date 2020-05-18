@@ -31,11 +31,11 @@ import org.springframework.stereotype.Service;
 public class CarService {
 
     private final CarRepository carRepository;
-    private final CarMapper carMapper;
     private final BrandService brandService;
     private final UserRepository userRepository;
-    private final BrandMapper brandMapper;
     private final AuthInfoService authInfoService;
+    private final CarMapper carMapper;
+    private final BrandMapper brandMapper;
     private final CarPageRequestMapper carPageRequestMapper;
     private final CarPageMapper carPageMapper;
 
@@ -109,10 +109,9 @@ public class CarService {
         Car car = carMapper.toCar(carDTO);
         if (id != null) {
             car.setId(id);
-            User currentUser = authInfoService.getUserByAuthentication(authentication);
             User owner = userRepository.findById(carDTO.getOwnerId()).orElseThrow(UserNotFoundException::new);
             car.setOwner(owner);
-            if (!car.getOwner().getId().equals(currentUser.getId()) && !currentUser.getRoles().contains(Role.ADMIN)) {
+            if (!allowEditCars(authentication, car)) {
                 throw new AccessDeniedException("The advertisement does not belong to the user");
             }
         }
@@ -128,12 +127,16 @@ public class CarService {
 
     public void deleteCar(Long carId, Authentication authentication) {
         Car car = carRepository.findById(carId).orElseThrow(CarNotFoundException::new);
-        User currentUser = authInfoService.getUserByAuthentication(authentication);
-        if (!car.getOwner().getId().equals(currentUser.getId()) && !currentUser.getRoles().contains(Role.ADMIN)) {
+        if (!allowEditCars(authentication, car)) {
             throw new AccessDeniedException("The advertisement does not belong to the user");
         }
         car.setIsDeleted(true);
         carRepository.save(car);
+    }
+
+    public boolean allowEditCars(Authentication authentication, Car car) {
+        User currentUser = authInfoService.getUserByAuthentication(authentication);
+        return car.getOwner().getId().equals(currentUser.getId()) || currentUser.getRoles().contains(Role.ADMIN);
     }
 
 }
