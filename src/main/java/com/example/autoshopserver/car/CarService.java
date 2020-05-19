@@ -40,6 +40,7 @@ public class CarService {
     private final CarPageMapper carPageMapper;
 
     public CarPageDTO getCarList(CarPageRequestDTO carPageRequestDTO, Authentication authentication) {
+
         CarPageRequest carPageRequest = carPageRequestMapper.toCarPageRequest(carPageRequestDTO);
         JSONArray filterJsonArray = new JSONArray(carPageRequest.getFilterString());
 

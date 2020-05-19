@@ -64,15 +64,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .authorizeRequests()
                     .antMatchers(ApplicationProperties.API_URL + "/cars/**").hasRole(Role.USER.toString())
-                    //.antMatchers(ApplicationProperties.API_URL + "/actuator/**").hasRole(Role.ADMIN.toString())
-                    //.antMatchers(ApplicationProperties.API_URL + "/test/**").permitAll()
                     .antMatchers(ApplicationProperties.API_URL + "/auth*").permitAll()
                     .antMatchers(ApplicationProperties.API_URL + "/auth-info").permitAll()
                     .antMatchers(ApplicationProperties.API_URL + "/registration").permitAll()
                     .antMatchers(ApplicationProperties.API_URL + "/login").permitAll()
                     .anyRequest().authenticated()
                 .and()
-                    .csrf().disable()
+                    .csrf()
+                    .disable()
                     .formLogin()
                     .successHandler(successHandler())
                     .failureHandler(failureHandler())
@@ -91,7 +90,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationSuccessHandler successHandler() {
         return new AuthenticationSuccessHandler() {
             @Override
-            public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
+            public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
+                                                HttpServletResponse httpServletResponse,
+                                                Authentication authentication) throws IOException {
                 AuthInfoDTO authInfoDTO = authInfoMapper.toAuthInfoDTO(
                         AuthInfo.builder()
                                 .status("ok")
@@ -110,7 +111,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationFailureHandler failureHandler() {
         return new AuthenticationFailureHandler() {
             @Override
-            public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException {
+            public void onAuthenticationFailure(HttpServletRequest httpServletRequest,
+                                                HttpServletResponse httpServletResponse,
+                                                AuthenticationException e) throws IOException {
                 AuthInfoDTO authInfoDTO = authInfoMapper.toAuthInfoDTO(
                         AuthInfo.builder()
                                 .status("error")
@@ -130,7 +133,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private AccessDeniedHandler accessDeniedHandler() {
         return new AccessDeniedHandler() {
             @Override
-            public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException {
+            public void handle(HttpServletRequest httpServletRequest,
+                               HttpServletResponse httpServletResponse,
+                               AccessDeniedException e) throws IOException {
                 AuthInfoDTO authInfoDTO = authInfoMapper.toAuthInfoDTO(
                         AuthInfo.builder()
                                 .status("error")
@@ -149,7 +154,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private LogoutSuccessHandler logoutSuccessHandler() {
         return new LogoutSuccessHandler() {
             @Override
-            public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
+            public void onLogoutSuccess(HttpServletRequest httpServletRequest,
+                                        HttpServletResponse httpServletResponse,
+                                        Authentication authentication) throws IOException {
                 AuthInfoDTO authInfoDTO = authInfoMapper.toAuthInfoDTO(
                         AuthInfo.builder()
                                 .status("ok")
@@ -169,7 +176,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         return new AuthenticationEntryPoint() {
             @Override
-            public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException {
+            public void commence(HttpServletRequest httpServletRequest,
+                                 HttpServletResponse httpServletResponse,
+                                 AuthenticationException e) throws IOException {
                 AuthInfoDTO authInfoDTO = authInfoMapper.toAuthInfoDTO(
                         AuthInfo.builder()
                                 .status("error")

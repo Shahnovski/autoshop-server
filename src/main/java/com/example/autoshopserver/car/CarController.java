@@ -1,6 +1,5 @@
 package com.example.autoshopserver.car;
 
-import com.example.autoshopserver.car.page.CarPage;
 import com.example.autoshopserver.car.page.CarPageDTO;
 import com.example.autoshopserver.car.page.request.CarPageRequestDTO;
 import com.example.autoshopserver.common.ApplicationProperties;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @AllArgsConstructor

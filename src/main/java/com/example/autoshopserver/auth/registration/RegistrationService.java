@@ -64,9 +64,6 @@ public class RegistrationService {
         user.setActive(true);
         Set<Role> roles = new HashSet<Role>();
         roles.add(Role.USER);
-        if (username.compareTo("admin") == 0 || username.compareTo("root") == 0) {
-            roles.add(Role.ADMIN);
-        }
         user.setRoles(roles);
         userRepository.save(user);
 

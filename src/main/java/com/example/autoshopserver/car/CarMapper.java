@@ -2,7 +2,6 @@ package com.example.autoshopserver.car;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import java.sql.Blob;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
 package com.example.autoshopserver.car.page;
 
 import com.example.autoshopserver.car.CarDTO;
-import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
