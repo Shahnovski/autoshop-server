@@ -1,6 +1,7 @@
 package com.example.autoshopserver.car;
 
 import com.example.autoshopserver.car.brand.Brand;
+import com.example.autoshopserver.car.comment.Comment;
 import com.example.autoshopserver.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +11,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -66,5 +68,6 @@ public class Car {
     @Column(name = "isDeleted")
     private Boolean isDeleted;
 
-
+    @OneToMany(mappedBy = "car", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Comment> comments;
 }

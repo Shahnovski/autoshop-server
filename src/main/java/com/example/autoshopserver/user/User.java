@@ -1,6 +1,7 @@
 package com.example.autoshopserver.user;
 
 import com.example.autoshopserver.car.Car;
+import com.example.autoshopserver.car.comment.Comment;
 import lombok.*;
 import javax.persistence.*;
 import java.util.HashSet;
@@ -36,5 +37,8 @@ public class User {
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Car> cars;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Comment> comments;
 
 }
